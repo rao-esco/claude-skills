@@ -29,8 +29,8 @@ and some are not.
 |---|---|---|
 | **Principle skills** | teach how to design, animate, compose components, handle touch | During design: the design agent loads them |
 | **Library skills** | how to add, compose and style the project's component library | During design: the design agent loads them |
-| **Codebase-scanning skills** | audit or survey existing code, find opportunities across the repo, review a diff | After the swap only, scoped to the new files. Before that they would read the old component and leak its design |
-| **Stress-test skills** | render the UI with worst-case data and report what breaks | After the swap, on the new component |
+| **Codebase-scanning skills** | audit or survey existing code, find opportunities across the repo, review a diff | Only once the new version is in place, scoped to the new files. Before that they would read the old component and leak its design |
+| **Stress-test skills** | render the UI with worst-case data and report what breaks | Once the new version is in place, on the new component |
 
 If a skill's description doesn't make clear which kind it is, read its SKILL.md before
 deciding. One that "reviews" a named file or diff is safe once you point it at the new
@@ -42,7 +42,7 @@ files; one that sweeps "the codebase" is not safe during design.
   "Skills to use", with one line each on why it applies to this UI. The design agent
   loads them with its skill tool before designing. Only list skills that fit: a motion
   skill for a UI with no transitions is noise.
-- **After the swap:** run the relevant review and stress-test skills on the new component
+- **Once the new version is in place:** run the relevant review and stress-test skills on the new component
   files, and fix what they find before reporting to the user. Mention which ones ran and
   what they changed.
 - **Conflicts:** if two skills disagree, or a skill disagrees with the project's own

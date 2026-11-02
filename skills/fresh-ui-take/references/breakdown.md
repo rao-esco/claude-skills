@@ -11,8 +11,8 @@ how it looks. You read the old code so the design agent doesn't have to.
    shared primitives (button, input, dialog shell and similar library components); those
    are building blocks, not this UI's design.
 2. **The public interface.** The props or parameters the component accepts and what its
-   callers pass. It's the starting point for the new component, so the first swap is
-   small, but it can change if a cleaner data flow needs it. Find every call site now.
+   callers pass. It's the starting point for the new component, so the call sites
+   can stay as they are, but it can change if a cleaner data flow needs it. Find every call site now.
 3. **The data layer.** Hooks, queries, mutations and the API endpoints or server functions
    behind them. Record what each returns (fields, not types), what each mutation sends,
    what it answers, and how errors come back. Note the project's architecture standards

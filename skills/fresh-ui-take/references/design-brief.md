@@ -75,7 +75,7 @@ What each error should tell the user.>
 
 ## Public interface
 <What the component receives from its parent today, in plain words. Start from it so
-the first swap is small; it may change if the design or a cleaner data flow needs
+the call sites can stay as they are; it may change if the design or a cleaner data flow needs
 different inputs.>
 
 ## Design principles

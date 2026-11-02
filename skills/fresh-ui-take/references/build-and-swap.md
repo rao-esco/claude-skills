@@ -1,4 +1,12 @@
-# Building, swapping and cleaning up
+# Building, replacing and going back
+
+## Before spawning
+
+The new version will replace the old component's files at the same paths, and git is
+the copy you'll go back to. Check the files on the blocked list with
+`git status --porcelain -- <paths>`. If any has uncommitted changes, stop and ask the
+user to commit or stash them; don't commit for them. Then record the current commit
+(`git rev-parse HEAD`): it's the one the old version is restored from.
 
 ## Spawning the design agent
 
@@ -6,11 +14,13 @@ Use a fresh subagent (not a fork, which would inherit everything you've read, ol
 component included). A general-purpose agent with file and skill tools is right. Give it:
 
 - the brief, as approved by the user
-- where to write: a new file or folder next to the old component, named so the pair is
-  obvious (for example the old name with a `-v2` or `-next` suffix, matching the project's
-  file naming)
+- where to write: a staging folder named `_fresh-take` inside the old component's folder.
+  The main file takes the old main file's name and exports the same name the call sites
+  import, so it can drop into place. Other files get their final names.
+- that imports reaching outside the staging folder use the project's path aliases where
+  it has them, so they still resolve after the move
 - that it must not edit any existing file: no old component, no shared hook, no API, no
-  primitive. New files only.
+  primitive. New files in the staging folder only.
 - that it must follow the project's instructions file and conventions (code style,
   comment rules, path aliases, theme tokens), which it may read
 - that it must load the skills listed under "Skills to use" before designing
@@ -70,17 +80,22 @@ against "it works".
 Keep a list of every temporary data workaround, with its cost. It goes in your report
 and drives the cleanup.
 
-## Swapping it in
+## Putting it in place
 
-- Change each call site to use the new component. Starting from the old props keeps the
-  first swap small and going back cheap, so that's the default.
-- The props aren't frozen. If the design or a cleaner, more efficient data flow needs
+Do this as soon as the agent finishes, not after the user's verdict, so the repo never
+holds two versions that someone has to remember to clean up.
+
+- Delete the old component's files on the blocked list. Before deleting each one, search
+  for other users of it; a file something else imports stays.
+- Move the staged files into the old component's folder and remove the empty staging
+  folder.
+- Fix any imports the move broke.
+- Starting from the old props keeps the call sites unchanged, so that's the default. The
+  props aren't frozen, though. If the design or a cleaner, more efficient data flow needs
   different inputs (the component fetching its own data instead of receiving it, the
   parent passing less, a query returning a better shape), change them and update the
   call sites. List each change in your report. Don't bend the new component around the
   old props when that means extra recalculation inside it.
-- Leave the old component's files untouched and still compiling, so going back is just
-  pointing the call sites at it again.
 
 ## Verifying
 
@@ -94,7 +109,8 @@ and drives the cleanup.
 ## Reporting to the user
 
 - what the new design does differently, in a few lines
-- the files added and the call sites swapped
+- the files replaced, added and removed, and any call sites changed
+- the commit the old version can be restored from
 - what you verified and what you couldn't
 - every temporary data workaround, and what the clean version would be
 - the question: keep, change, or go back
@@ -107,14 +123,16 @@ and drives the cleanup.
    client-side work the server can do once. Change the component's props and call sites
    to match where that's cleaner. Explain the efficiency gain in a line each. Do it on
    their yes.
-2. Ask whether to delete the old component and anything only it used. Search for other
-   users of each piece before deleting it.
-3. Offer to rename the new files to the old names once the old ones are gone.
+
+There's no old component left to clean up; git keeps it.
 
 **Changes wanted:** iterate on the new component. If the change is about what the UI must
 do, update the brief and treat it as a design change, not a patch.
 
-**Rejected:** point the call sites back at the old component, then ask whether to keep
-the new files for reference or delete them.
+**Rejected:** restore the old files with
+`git restore --source=<recorded commit> -- <old paths>`, delete the files only the new
+design added, and undo any call-site changes. Type check to confirm the old version
+compiles again.
 
-Nothing is committed, pushed or deleted without the user asking.
+Apart from replacing the old component's own files, nothing is committed, pushed or
+deleted without the user asking.
