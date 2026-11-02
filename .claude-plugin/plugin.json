@@ -1,8 +1,0 @@
-{
-  "name": "esco-skills",
-  "description": "Esco's shared Claude skills",
-  "author": {
-    "name": "rao-esco"
-  },
-  "repository": "https://github.com/rao-esco/claude-skills"
-}
