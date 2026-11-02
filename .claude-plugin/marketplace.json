@@ -1,0 +1,14 @@
+{
+  "name": "esco-skills",
+  "description": "Esco's shared Claude skills",
+  "owner": {
+    "name": "rao-esco"
+  },
+  "plugins": [
+    {
+      "name": "esco-skills",
+      "source": "./",
+      "description": "Esco's shared Claude skills"
+    }
+  ]
+}
