@@ -39,15 +39,50 @@ form it takes in the brief.
 - **Jobs:** the one or two things the user of this UI is trying to get done.
 - **Situations:** distinct contexts that change behaviour (published or draft, own record
   or someone else's, permission held or not, empty or populated).
-- **Capabilities:** every action, each with its rules and limits.
+- **Capabilities:** every action, each with its rules and limits, its tier (primary,
+  supporting, secondary or destructive, as defined in design-principles.md), how often
+  people use it, and whether it shows state (a toggle such as bookmarked).
 - **Data in:** each entity the UI receives, with the fields that matter to a person.
 - **Data out:** what each action sends, and what comes back: success, partial success,
   each kind of refusal.
 - **Information shown:** facts the user needs to see, and which ones matter most.
+- **Information carried visually:** every icon, colour, badge or symbol in the current UI
+  that stands for a fact (an icon for the item's type, a colour the user picked, a marker
+  for a status). Write down the fact, not the treatment: "each item shows its type and
+  the colour the user chose for it". The design agent can't see the old UI, so a fact
+  left off this list is lost. Note visual elements that carry no fact too; those are
+  candidates to drop. Treatment words (icon, badge, pill, tint, filled) describe what
+  you look for in the code and never appear in what you write down. A colour can be
+  named only when the colour is itself the data, such as one the user chose. See the
+  example below.
 - **States:** for every part that loads or saves, its idle, loading, empty, error and
   success states, and which of them exist today.
 - **Constraints:** where it lives (dialog, page, both), the component library and icon
   set in use, permissions, hard limits, and anything the user put off the table.
+
+### Example: information carried visually
+
+This example shows one way to apply the rule above, not a template to copy. The UI you
+break down will carry different facts; find those, and phrase them in whatever way
+reads best. Only the rule is required: write the fact, never the treatment.
+
+Found in the code of a learning-item card: a book icon chosen by the item's type, tinted
+with a colour stored on the item; an orange "Overdue" or blue "In Progress" pill; a
+bookmark icon, filled or outlined; an alarm-clock icon beside the due date.
+
+Written down:
+
+> - Each item has a type (course, learning path, assessment). People tell types apart
+>   at a glance, before reading the title.
+> - Each item has a colour the person chose to tell their own items apart. It must stay
+>   visible on every item.
+> - Each item has a status: not started, in progress, completed or overdue. Overdue
+>   matters most because it means the person should act first; the others are context.
+> - Whether the person has bookmarked the item. They can change it from the item, and
+>   the current state is visible without opening anything.
+>
+> Carries no fact (raise with the user, keep out of the brief): the alarm-clock icon
+> repeats what the due date already says. Candidate to drop.
 
 ## Be critical
 

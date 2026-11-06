@@ -5,12 +5,70 @@ checklist is for reviewing the result before it reaches the user.
 
 ## Principles
 
-**Clear hierarchy.** The most important fact or action is unmistakable at a glance.
-Secondary information is visibly secondary. If everything is emphasised, nothing is.
+**Clear hierarchy, built with active white space.** The most important fact or action
+is unmistakable at a glance. Secondary information is visibly secondary. If everything
+is emphasised, nothing is. White space is a tool for this, not leftover room:
+- Every gap is a decision. Active white space directs the eye, creates emphasis or shows
+  a relationship. Passive white space (a gap that exists only because nothing filled it)
+  carries no meaning; remove it or make it do a job.
+- More space around an element raises its importance without making it bigger, bolder
+  or more colourful. Reach for space before reaching for weight or colour.
+- Micro space (line height, letter spacing, padding inside a component) is for
+  readability. Macro space (margins, gaps between sections) sets hierarchy and how
+  polished the result feels. Get both right; they solve different problems.
+- Density follows the context. Data tables, dashboards and expert tools need
+  compression; generous space there means more scrolling and slower scanning for people
+  who already know where to look. On narrow screens, trade space against keeping the
+  essentials visible without scrolling. Match the density of the project's neighbouring
+  screens; never make a dense tool roomier than the app around it.
 
 **Readable grouping.** Related information sits together and reads as one unit;
-unrelated things are clearly separate. A person scanning should find each fact in one
+unrelated things are clearly separate. Space does the grouping: the gap inside a group
+is visibly smaller than the gap between groups, so relationships read before any
+border, divider or background is added. A person scanning should find each fact in one
 place, labelled in the words they use.
+
+**Every visual element carries information.** An icon, colour, badge or shape earns its
+place by telling the person something: what type a thing is, a preference they set, a
+status that changes what they do next. Nothing is added for decoration.
+- Information the old UI carried visually is information, not styling. If an icon
+  showed the item's type and a colour showed the person's chosen colour, both survive
+  the redesign. Dropping them removes data.
+- Combine carriers where it reads naturally (an icon that shows the type, tinted with
+  the person's colour) rather than spreading one fact across several decorations, and
+  never let colour be the only carrier of a meaning.
+- No coloured accent borders or side stripes on cards, rows or panels. They are a
+  generic decoration that carries little and makes every surface look the same.
+- A badge has to pass one test: does the person need this to make a decision right now?
+  "Overdue" passes; it changes what they do. A badge that restates something already
+  visible, or that nobody acts on, fails. More badges is not more clarity.
+
+**Actions are ranked, and the rank decides where they live.** Sort every action on a
+component into one of four tiers:
+- **Primary:** what the person should do next, the path to the outcome they came for.
+  Exactly one per component. It gets the strongest emphasis and the largest, nearest
+  target (filled button or equivalent).
+- **Supporting:** another way to make the same main decision that can't fold into the
+  primary (Approve as primary, Request changes as supporting). Visible, one step down in
+  emphasis (outline or text button).
+- **Secondary:** optional; it produces something separate from the main outcome and
+  leaves that outcome unchanged (bookmark, export, duplicate, share).
+- **Destructive:** deletes or irreversibly removes something.
+
+An action is shown directly on the component if at least one is true: it is primary or
+supporting; it shows state (a toggle such as bookmarked, pinned, following, where hiding
+the action would hide the state too); or most people use it on most visits. Everything
+else goes into an overflow (kebab) menu. Destructive actions go last in that menu, in a
+separate section, styled as destructive, and confirmed only if they can't be undone. The
+exception is a component whose job is removal (a list of items to clear out), where
+remove is the primary action. Keep visible actions to about three per component; if the
+test leaves more, the component is doing too many jobs.
+
+Why: every visible choice slows the main decision (Hick's law); defer what most people
+don't need now (progressive disclosure); but hidden actions get found and used less
+(recognition over recall), so hide only what you accept fewer people will find. Keep
+the primary target big and close (Fitts's law), keep state visible, and keep dangerous
+actions away from common ones so nobody deletes while aiming for Continue.
 
 **No repeated information.** Each fact appears once. A count, a name or a status shown in
 two places is one place to look and one place to get out of sync. Repetition is allowed
@@ -64,6 +122,14 @@ it belongs and survives theme changes.
 Run this on the built component before reporting to the user:
 
 - [ ] Can you tell the primary action and the most important fact within two seconds?
+- [ ] Is every gap doing a job (emphasis or grouping), are gaps inside groups smaller
+      than gaps between them, and does the density match the surrounding app?
+- [ ] Is everything the old UI showed visually (type icons, user-chosen colours, status
+      markers) still shown? Is any icon, colour or badge there only as decoration?
+- [ ] Any coloured accent borders or side stripes? Any badge the person wouldn't act on?
+- [ ] Is there exactly one primary action? Are visible actions limited to primary,
+      supporting, state toggles and frequent actions, with the rest in an overflow menu
+      and destructive actions last in their own section?
 - [ ] Is any fact, count or label shown twice for the same purpose?
 - [ ] Does every loading, empty and error state exist, and does each error say what to do?
 - [ ] Do Save, Submit and similar buttons confirm inline ("Saving…" → "Saved"), with no

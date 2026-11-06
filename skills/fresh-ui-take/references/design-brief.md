@@ -58,10 +58,14 @@ structure, interaction patterns) is open. We want a fresh perspective, not a res
 <Each context that changes behaviour, and what changes.>
 
 ## <One section per capability or group of capabilities>
-<What the user can do, the rules, what they're told at each limit.>
+<What the user can do, the rules, what they're told at each limit. Each action's tier
+(primary, supporting, secondary, destructive), how often it's used, and whether it
+shows state.>
 
 ## Information to show
-<Each fact, what it means, and which matter most.>
+<Each fact, what it means, and which matter most. Include facts the current UI carries
+visually (an item's type, a colour the user chose), stated as facts that must stay
+visible, without describing today's treatment.>
 
 ## UI states
 <Every part that loads or saves: idle, loading, empty, error, success, partial success.
